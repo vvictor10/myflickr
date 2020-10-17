@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MyFlickr</string>
+    <string name="connectivity_error">Please check your Internet Connectivity!</string>
+    <string name="search_hint">What would you like to see?</string>
+    <string name="search_no_results_response">Sorry, we couldn\'t find any photos for \"%s\"</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_fullscreen_photo">Flickr Photo</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+</resources>

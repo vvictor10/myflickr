@@ -1,0 +1,166 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+// build definitions & properties
+def projectName = "my_flickr"
+def isCIBuild = false // TODO: Check if its not CI build to load local com.elysiant.myflickr.app init. properties
+def env = System.getenv()
+def projectEnv = new HashMap()
+projectEnv.putAll(env)
+
+if (!isCIBuild) {
+    Properties myFlickrProperties = new Properties()
+    myFlickrProperties.load(new FileInputStream(file('myflickr.properties')))
+    updateProjectEnvVars(projectEnv, myFlickrProperties)
+}
+
+// Use all projectEnv as local variables
+def flickrApiKey = projectEnv.get("flickrApiKey")
+def flickrApiSecret = projectEnv.get("flickrApiSecret")
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.elysiant.myflickr"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        // Project/Build
+        buildConfigField "String", "PROJECT_NAME", "\"${projectName}\""
+        buildConfigField "String", "MY_FLICKR_API_KEY", "\"${flickrApiKey}\""
+        buildConfigField "String", "MY_FLICKR_API_SECRET", "\"${flickrApiSecret}\""
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        // TODO update with release keystore info when ready to release
+        release {
+            storeFile projectEnv.get("debugStoreFile") != null ? file(projectEnv.get("debugStoreFile")) : null
+            keyAlias projectEnv.get("debugKeyAlias") != null ? projectEnv.get("debugKeyAlias") : ""
+            storePassword projectEnv.get("debugStorePassword") != null ? projectEnv.get("debugStorePassword") : ""
+            keyPassword projectEnv.get("debugKeyPassword") != null ? projectEnv.get("debugKeyPassword") : ""
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/kotlin']
+            test.java.srcDirs += 'src/test/kotlin'
+            androidTest.java.srcDirs = ['src/androidTest/java']
+        }
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    // kotlin
+    implementation otherDependencies.kotlinStdLib
+
+    // support libs
+    implementation androidXdependencies.androidXCore
+    implementation androidXdependencies.material
+    implementation androidXdependencies.cardView
+    implementation androidXdependencies.appCompat
+    implementation androidXdependencies.recyclerView
+    implementation androidXdependencies.constraintLayout
+    implementation androidXdependencies.navigationFragment
+    implementation androidXdependencies.navigationUi
+    implementation androidXdependencies.espressoCore
+    implementation androidXdependencies.cardView
+    implementation androidXdependencies.androidXJunit
+
+    // Timber
+    implementation otherDependencies.timber
+
+    // Butterknife
+    implementation otherDependencies.butterknife
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    kapt otherDependencies.butterknife
+    annotationProcessor otherDependencies.butterknife
+
+    // Dagger
+    implementation daggerDependencies.dagger
+    kapt daggerDependencies.daggerCompiler
+    implementation daggerDependencies.glassfish
+
+    // Picasso
+    implementation squareDependencies.picasso
+    implementation squareDependencies.picassoDownloader
+
+    // okhttp
+    implementation squareDependencies.okhttp
+    implementation squareDependencies.okhttpLoggingInterceptor
+
+    // Retrofit
+    implementation squareDependencies.retrofit
+    implementation squareDependencies.adapterRxJava
+    implementation squareDependencies.converterGson
+
+    // Reactive
+    implementation reactiveDependencies.rxjava
+    implementation reactiveDependencies.rxandroid
+
+    // Others
+    implementation otherDependencies.gson
+    implementation otherDependencies.reactiveNetwork
+
+    // Test
+    testImplementation reactiveDependencies.rxjava
+    testImplementation testingDependencies.junit
+    testImplementation testingDependencies.assertj
+    testImplementation testingDependencies.mockitoCore
+
+    // Android tests
+    androidTestImplementation androidXdependencies.espressoCore
+    androidTestImplementation androidXdependencies.testCore
+    androidTestImplementation androidXdependencies.testRunner
+    androidTestImplementation androidXdependencies.testRules
+    androidTestImplementation androidXdependencies.androidXJunit
+    androidTestImplementation androidXdependencies.espressoIdling
+
+    androidTestImplementation testingDependencies.junit
+    androidTestImplementation testingDependencies.mockitoAndroid
+
+}
+
+// Store all build props as env props for ease of use
+def updateProjectEnvVars(Map<String, String> projectEnv, Properties myFlickrProps) {
+    try {
+        projectEnv.put("flickrApiKey", myFlickrProps.getProperty("flickrApiKey"))
+        projectEnv.put("flickrApiSecret", myFlickrProps.getProperty("flickrApiSecret"))
+        projectEnv.put("debugStoreFile", myFlickrProps.getProperty("debugStoreFile"))
+        projectEnv.put("debugKeyAlias", myFlickrProps.getProperty("debugKeyAlias"))
+        projectEnv.put("debugStorePassword", myFlickrProps.getProperty("debugStorePassword"))
+        projectEnv.put("debugKeyPassword", myFlickrProps.getProperty("debugKeyPassword"))
+
+    } catch (Exception e) {
+        println("updateProjectEnvVars failed with unexpected Errors - Exception is " + e.getMessage())
+    }
+}

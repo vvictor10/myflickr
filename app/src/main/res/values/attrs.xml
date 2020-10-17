@@ -1,0 +1,28 @@
+<resources>
+
+    <declare-styleable name="LoadingIndicatorView">
+        <attr name="shade" format="enum">
+            <enum name="dark" value="0" />
+            <enum name="light" value="1" />
+            <enum name="search" value="2" />
+            <enum name="pdp" value="3" />
+            <enum name="explore" value="4" />
+            <enum name="cart" value="5" />
+            <enum name="pdpAddToCart" value="6" />
+            <enum name="transparent" value="7" />
+            <enum name="filter" value="8" />
+            <enum name="pattern" value="9" />
+        </attr>
+        <attr name="smallView" format="boolean" />
+    </declare-styleable>
+
+    <!-- Declare custom theme attributes that allow changing which styles are
+         used for button bars depending on the API level.
+         ?android:attr/buttonBarStyle is new as of API 11 so this is
+         necessary to support previous API levels. -->
+    <declare-styleable name="ButtonBarContainerTheme">
+        <attr name="metaButtonBarStyle" format="reference" />
+        <attr name="metaButtonBarButtonStyle" format="reference" />
+    </declare-styleable>
+
+</resources>
