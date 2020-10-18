@@ -58,7 +58,7 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
     private var isLoadingMorePhotos = false
     private var currentItemsCount = 0
     private var previousItemsCount = 0
-    private var lastVisibleItemPosition = 0
+    private var lastVisibleAdapterItemPosition = 0
     private var abortPaginationDataUpdate = false
     private var loadingStateBeforePaginationCall = false
     private var lastVisibleItemPositionBeforePaginationCall = 0
@@ -177,7 +177,7 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
         currentItemsCount = 0
         previousItemsCount = 0
         totalItemCountBeforePaginationCall = 0
-        lastVisibleItemPosition = 0
+        lastVisibleAdapterItemPosition = 0
         abortPaginationDataUpdate = false
         loadingStateBeforePaginationCall = false
         lastVisibleItemPositionBeforePaginationCall = 0
@@ -234,7 +234,7 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
      */
     private fun fetchNextPageOfSearchResults() {
         currentItemsCount = searchResultsLayoutManager.itemCount
-        lastVisibleItemPosition = searchResultsLayoutManager.findLastVisibleItemPosition()
+        lastVisibleAdapterItemPosition = searchResultsLayoutManager.findLastVisibleItemPosition()
         if (isLoadingMorePhotos) {
             if (currentItemsCount > previousItemsCount) {
                 isLoadingMorePhotos = false
@@ -243,7 +243,7 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
         }
 
         // Fire the call for the next page when we reach the last 20 images in the current set of 200.
-        if (!isLoadingMorePhotos && currentItemsCount - lastVisibleItemPosition <= 20) {
+        if (!isLoadingMorePhotos && currentItemsCount - lastVisibleAdapterItemPosition <= 20) {
             // End has been reached but check if there is next
             val searchString = search_edittext.text.toString().trim { it <= ' ' }
             photos?.let {
@@ -255,7 +255,7 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
                         abortPaginationDataUpdate = false
                         loadingStateBeforePaginationCall = false
                         totalItemCountBeforePaginationCall = currentItemsCount
-                        lastVisibleItemPositionBeforePaginationCall = lastVisibleItemPosition
+                        lastVisibleItemPositionBeforePaginationCall = lastVisibleAdapterItemPosition
 
                         searchResultsAdapter.showLoadingMoreState()
                     }
@@ -269,7 +269,7 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
             abortPaginationDataUpdate = true
             isLoadingMorePhotos = loadingStateBeforePaginationCall
             currentItemsCount = totalItemCountBeforePaginationCall
-            lastVisibleItemPosition = lastVisibleItemPositionBeforePaginationCall
+            lastVisibleAdapterItemPosition = lastVisibleItemPositionBeforePaginationCall
 
             searchResultsAdapter.hideLoadingMoreState()
 
