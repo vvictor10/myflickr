@@ -1,6 +1,5 @@
 package com.elysiant.myflickr.ui.photos
 
-import com.elysiant.myflickr.models.PhotoItem
 import com.elysiant.myflickr.models.Photos
 
 /**
@@ -13,7 +12,6 @@ interface PhotosContract {
 
     interface View {
         fun onSearch(photos: Photos, pageNo: Int)
-        fun onPhoto(photoItem: PhotoItem)
         fun onError()
     }
 

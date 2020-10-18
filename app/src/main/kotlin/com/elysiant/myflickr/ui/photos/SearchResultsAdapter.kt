@@ -72,14 +72,14 @@ class SearchResultsAdapter(private val context: Context, private val listener: P
         }
     }
 
-    override fun getItemId(position: Int): Long {
-        val photo: PhotoItem? = photoItems[position]
-        return if (photo?.id == MyFlickrConstants.LOADING_MORE_PHOTO_ID_PLACE_HOLDER) {
-            0
-        } else {
-            photo?.id?.toLong() ?: 0
-        }
-    }
+//    override fun getItemId(position: Int): Long {
+//        val photo: PhotoItem? = photoItems[position]
+//        return if (photo?.id == MyFlickrConstants.LOADING_MORE_PHOTO_ID_PLACE_HOLDER) {
+//            0
+//        } else {
+//            photo?.id?.toLong() ?: 0
+//        }
+//    }
 
     override fun onViewDetachedFromWindow(@NonNull holder: ViewHolder) {
         super.onViewDetachedFromWindow(holder)
@@ -95,7 +95,7 @@ class SearchResultsAdapter(private val context: Context, private val listener: P
 
     fun appendData(photos: List<PhotoItem>) {
         this.photoItems.addAll(photos)
-        Timber.d("Total no. of products now %d", this.photoItems.size)
+        Timber.d("Total no. of products now: %d", this.photoItems.size)
     }
 
     interface PhotoItemListener {
@@ -136,10 +136,7 @@ class SearchResultsAdapter(private val context: Context, private val listener: P
 
         fun bind(context: Context, data: PhotoItem?, listener: PhotoItemListener, picasso: Picasso, imageSize: Int) {
             data?.let {
-                val layoutParams = photoItemImageView.layoutParams
-                layoutParams.height = imageSize
-                layoutParams.width = imageSize
-                photoItemImageView.layoutParams = layoutParams
+                updateImageViewLayoutParams(imageSize)
 
                 // reset the target
                 this.picassoTarget = null
@@ -150,6 +147,15 @@ class SearchResultsAdapter(private val context: Context, private val listener: P
                 photoItemImageView.setOnClickListener {
                     listener.onPhotoItemClicked(data)
                 }
+            }
+        }
+
+        private fun updateImageViewLayoutParams(imageSize: Int) {
+            val layoutParams = photoItemImageView.layoutParams
+            if (layoutParams.height != imageSize && layoutParams.width != imageSize) {
+                layoutParams.height = imageSize
+                layoutParams.width = imageSize
+                photoItemImageView.layoutParams = layoutParams
             }
         }
     }

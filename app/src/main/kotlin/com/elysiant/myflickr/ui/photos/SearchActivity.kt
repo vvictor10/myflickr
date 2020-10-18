@@ -13,12 +13,10 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.elysiant.myflickr.R
-import com.elysiant.myflickr.common.MyFlickrConstants
 import com.elysiant.myflickr.models.PhotoItem
 import com.elysiant.myflickr.models.Photos
 import com.elysiant.myflickr.ui.common.BaseNavigationActivity
@@ -50,7 +48,6 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
 
     private lateinit var searchResultsLayoutManager: GridLayoutManager
     private lateinit var searchInput: String
-    private lateinit var suggestedSearchTermsLayoutManager: LinearLayoutManager
 
     private var photos: Photos? = null
     private var photoItems: MutableList<PhotoItem> = ArrayList()
@@ -58,9 +55,9 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
     private var handler = Handler()
 
     // pagination
-    private var isLoading = false
-    private var totalItemCount = 0
-    private var previousTotal = 0
+    private var isLoadingMorePhotos = false
+    private var currentItemsCount = 0
+    private var previousItemsCount = 0
     private var lastVisibleItemPosition = 0
     private var abortPaginationDataUpdate = false
     private var loadingStateBeforePaginationCall = false
@@ -120,7 +117,7 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
     }
 
     override fun onSearch(photos: Photos, pageNo: Int) {
-        Timber.i("Search Results for: %s, pageNo: %d, total pages: %d", search_edittext.text.trim(), pageNo, photos.totalNoOfPages)
+        Timber.d("Search Results for: %s, pageNo: %d, total pages: %d", search_edittext.text.trim(), pageNo, photos.totalNoOfPages)
         if (pageNo > 1) { // Pagination response
             showNextPageResults(photos)
         } else { // fresh search
@@ -143,10 +140,6 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
         }
     }
 
-    override fun onPhoto(photoItem: PhotoItem) {
-        TODO("Not yet implemented -  Must go to full screen view")
-    }
-
     override fun onError() {
         displayLoadingIndicator(false)
         cancelPaginationLoadingState(true)
@@ -166,9 +159,7 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
     }
 
     private fun doSearch(searchString: String) {
-        Timber.d("called with %s", searchString)
         if (searchString.isNotEmpty()) {
-            Timber.d("Searching for %s", searchString)
             this.searchInput = searchString
 
             // close the keyboard and disable cursor
@@ -183,8 +174,8 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
     }
 
     private fun resetPaginationAttributes() {
-        totalItemCount = 0
-        previousTotal = 0
+        currentItemsCount = 0
+        previousItemsCount = 0
         totalItemCountBeforePaginationCall = 0
         lastVisibleItemPosition = 0
         abortPaginationDataUpdate = false
@@ -242,26 +233,28 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
      * to fetch the next page if it exists.
      */
     private fun fetchNextPageOfSearchResults() {
-        totalItemCount = searchResultsLayoutManager.itemCount
-         lastVisibleItemPosition = searchResultsLayoutManager.findLastVisibleItemPosition()
-        if (isLoading) {
-            if (totalItemCount > previousTotal) {
-                isLoading = false
-                previousTotal = totalItemCount
+        currentItemsCount = searchResultsLayoutManager.itemCount
+        lastVisibleItemPosition = searchResultsLayoutManager.findLastVisibleItemPosition()
+        if (isLoadingMorePhotos) {
+            if (currentItemsCount > previousItemsCount) {
+                isLoadingMorePhotos = false
+                previousItemsCount = currentItemsCount
             }
         }
-        if (!isLoading && lastVisibleItemPosition == totalItemCount - 1) {
+
+        // Fire the call for the next page when we reach the last 20 images in the current set of 200.
+        if (!isLoadingMorePhotos && currentItemsCount - lastVisibleItemPosition <= 20) {
             // End has been reached but check if there is next
             val searchString = search_edittext.text.toString().trim { it <= ' ' }
             photos?.let {
                 if (it.pageNo < it.totalNoOfPages) {
-                    isLoading = true
+                    isLoadingMorePhotos = true
                     val validRequest: Boolean = photosPresenter.doSearchNextPage(searchString, it.pageNo + 1)
                     if (validRequest) {
                         Timber.d("Fetching next page for String(page: %d): %s", it.pageNo + 1, searchString)
                         abortPaginationDataUpdate = false
                         loadingStateBeforePaginationCall = false
-                        totalItemCountBeforePaginationCall = totalItemCount
+                        totalItemCountBeforePaginationCall = currentItemsCount
                         lastVisibleItemPositionBeforePaginationCall = lastVisibleItemPosition
 
                         searchResultsAdapter.showLoadingMoreState()
@@ -272,10 +265,10 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
     }
 
     private fun cancelPaginationLoadingState(forceCancellation: Boolean) {
-        if (isLoading || forceCancellation) {
+        if (isLoadingMorePhotos || forceCancellation) {
             abortPaginationDataUpdate = true
-            isLoading = loadingStateBeforePaginationCall
-            totalItemCount = totalItemCountBeforePaginationCall
+            isLoadingMorePhotos = loadingStateBeforePaginationCall
+            currentItemsCount = totalItemCountBeforePaginationCall
             lastVisibleItemPosition = lastVisibleItemPositionBeforePaginationCall
 
             searchResultsAdapter.hideLoadingMoreState()

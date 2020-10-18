@@ -32,7 +32,7 @@ constructor(private val flickrApi: FlickrApi, private val flickrLocalStorage: Fl
                     CoroutineScope(Dispatchers.IO).launch {
                         try {
                             photosResultResponse.response()?.body()?.photos?.photosList?.let {
-                                Timber.d("No. of new photos to add to Room: %s", it.size)
+                                Timber.d("No. of new photos to add to local database: %s", it.size)
                                 flickrLocalStorage.savePhotos(it)
                             }
                         } catch (e: Exception) {

@@ -17,9 +17,6 @@ import javax.inject.Singleton
 class FlickrApiLocalStorage @Inject
 constructor(private val roomDatabase: MyFlickrRoomDatabase) : FlickrApi {
 
-    /**
-     * TODO: Page number is not used right now.
-     */
     override fun searchPhotos(searchTerm: String, pageNo: Int): Observable<Result<PhotosResponse>> {
         val photoItems: MutableList<PhotoItem> = ArrayList()
         runBlocking {
@@ -30,9 +27,6 @@ constructor(private val roomDatabase: MyFlickrRoomDatabase) : FlickrApi {
         return Observable.just(Result.response(Response.success(response)))
     }
 
-    /**
-     * TODO: Keeping it simple. The Room database will only store the latest fetch results from Flickr.
-     */
     override fun savePhotos(photoItems: List<PhotoItem>) {
         CoroutineScope(Dispatchers.IO).launch {
             savePhotosToLocalStorage(photoItems)
@@ -42,7 +36,7 @@ constructor(private val roomDatabase: MyFlickrRoomDatabase) : FlickrApi {
     private suspend fun savePhotosToLocalStorage(photoItems: List<PhotoItem>) =
         withContext(Dispatchers.IO) {
             roomDatabase.myFlickrLocalDao().savePhotos(photoItems)
-            Timber.i("No. of photo items saved to Room: %d", photoItems.size)
+            Timber.i("No. of photo items saved to local database: %d", photoItems.size)
         }
 
     private suspend fun getPhotosFromLocalStorage(searchTerm: String): MutableList<PhotoItem> =

@@ -13,7 +13,7 @@ object MyFlickrConstants {
     const val LOADING_MORE_PHOTO_ID_PLACE_HOLDER = "FAKE_PHOTO_ID"
 
     // API Constants
-    const val PHOTOS_PER_PAGE = 100
+    const val PHOTOS_PER_PAGE = 200
     const val PHOTOS_METHOD = "flickr.photos.search"
     const val API_KEY = "api_key"
     const val RESPONSE_FORMAT = "format"

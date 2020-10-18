@@ -28,7 +28,7 @@ class NetworkListener {
             .subscribe { connectivityStatus ->
                 isOnline =
                     if (connectivityStatus == ConnectivityStatus.OFFLINE || connectivityStatus == ConnectivityStatus.WIFI_CONNECTED_HAS_NO_INTERNET) {
-                        Timber.i("Network connectivity lost")
+                        Timber.w("Network connectivity lost")
                         if (context is BaseNavigationActivity) {
                             context.displaySnackBarMessage(context.resources.getString(R.string.connectivity_error))
                         }

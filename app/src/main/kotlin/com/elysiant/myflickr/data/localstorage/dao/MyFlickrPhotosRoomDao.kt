@@ -6,13 +6,8 @@ import com.elysiant.myflickr.models.PhotoItem
 @Dao
 interface MyFlickrPhotosRoomDao {
 
-    /**
-     * TODO: Currently, this method erases the old photos and ONLY saves the latest ones sent down.
-     * May be we can store to a particular limit and not limit to the last fetched set.
-     */
     @Transaction
     suspend fun savePhotos(photoItems: List<PhotoItem>) {
-        deleteAll()
         insertAll(photoItems)
     }
 
