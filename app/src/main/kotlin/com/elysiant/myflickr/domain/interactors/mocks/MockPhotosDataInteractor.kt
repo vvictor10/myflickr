@@ -1,6 +1,6 @@
 package com.elysiant.myflickr.domain.interactors.mocks
 
-import com.elysiant.myflickr.data.service.local.FlickrApiLocal
+import com.elysiant.myflickr.data.service.local.FlickrApiTest
 import com.elysiant.myflickr.domain.interactors.PhotosDataInteractor
 import com.elysiant.myflickr.models.PhotosResponse
 import io.reactivex.Observable
@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 @Singleton
 open class MockPhotosDataInteractor @Inject
-constructor(private val flickrApi: FlickrApiLocal) : PhotosDataInteractor {
+constructor(private val flickrApi: FlickrApiTest) : PhotosDataInteractor {
 
     /**
      * Used to search for photos based on a search string.

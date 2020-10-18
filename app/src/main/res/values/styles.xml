@@ -23,7 +23,7 @@
 
     <style name="AppTheme.NoActionBar.StatusBar">
         <item name="android:statusBarColor">?android:attr/colorPrimaryDark</item>
-        <item name="android:background">?android:attr/colorPrimaryDark</item>
+<!--        <item name="android:background">?android:attr/colorPrimaryDark</item>-->
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

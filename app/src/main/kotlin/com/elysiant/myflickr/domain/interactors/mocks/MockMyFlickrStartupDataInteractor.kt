@@ -2,7 +2,7 @@ package com.elysiant.myflickr.domain.interactors.mocks
 
 import android.util.LruCache
 import com.elysiant.myflickr.common.MyFlickrConstants
-import com.elysiant.myflickr.data.service.local.FlickrApiLocal
+import com.elysiant.myflickr.data.service.local.FlickrApiTest
 import com.elysiant.myflickr.domain.interactors.MyFlickrStartupDataInteractor
 import com.elysiant.myflickr.models.PhotoItem
 import com.elysiant.myflickr.models.PhotosResponse
@@ -16,7 +16,7 @@ import javax.inject.Singleton
 
 @Singleton
 class MockMyFlickrStartupDataInteractor @Inject
-constructor(private val lruCache: LruCache<Any, Any>, private val flickrApi: FlickrApiLocal) : MyFlickrStartupDataInteractor {
+constructor(private val lruCache: LruCache<Any, Any>, private val flickrApi: FlickrApiTest) : MyFlickrStartupDataInteractor {
 
     private val disposables = CompositeDisposable()
 

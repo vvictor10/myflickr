@@ -2,12 +2,15 @@ package com.elysiant.myflickr.app.injection.module
 
 import android.content.Context
 import android.util.LruCache
+import androidx.room.Room
 import com.elysiant.myflickr.BuildConfig
 import com.elysiant.myflickr.app.injection.qualifier.ForApplication
-import com.elysiant.myflickr.data.service.FlickrApi
 import com.elysiant.myflickr.common.MyFlickrConstants
 import com.elysiant.myflickr.common.MyFlickrEnvironmentEnum
+import com.elysiant.myflickr.data.localstorage.MyFlickrRoomDatabase
+import com.elysiant.myflickr.data.service.FlickrApi
 import com.elysiant.myflickr.data.service.network.FlickrApiRetrofit
+import com.elysiant.myflickr.data.service.room.FlickrApiLocalStorage
 import com.elysiant.myflickr.domain.interactors.MyFlickrStartupDataInteractor
 import com.elysiant.myflickr.domain.interactors.MyFlickrStartupDataInteractorImpl
 import com.elysiant.myflickr.domain.interactors.PhotosDataInteractor
@@ -54,6 +57,20 @@ open class MyFlickrModule(private val context: Context) {
 
     @Provides
     @Singleton
+    open fun provideRoomDatabase(): MyFlickrRoomDatabase {
+        return Room.databaseBuilder(context,
+            MyFlickrRoomDatabase::class.java, context.packageName
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    open fun provideFlickrApiLocalStorage(roomDatabase: MyFlickrRoomDatabase): FlickrApiLocalStorage {
+        return FlickrApiLocalStorage(roomDatabase)
+    }
+
+    @Provides
+    @Singleton
     fun provideFlickr(): FlickrApi {
         return mFlickr
     }
@@ -69,10 +86,8 @@ open class MyFlickrModule(private val context: Context) {
 
     @Provides
     @Singleton
-    open fun providePhotosDataInteractor(flickrApi: FlickrApi): PhotosDataInteractor {
-        return PhotosDataInteractorImpl(
-            flickrApi
-        )
+    open fun providePhotosDataInteractor(flickrApi: FlickrApi, flickrApiLocalStorage: FlickrApiLocalStorage): PhotosDataInteractor {
+        return PhotosDataInteractorImpl(flickrApi, flickrApiLocalStorage)
     }
 
     @Provides

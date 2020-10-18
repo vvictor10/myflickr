@@ -122,7 +122,7 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
     @OnClick(R.id.search_icon)
     fun onSearchIconClicked() {
         val searchEditTextInput = search_edittext.text.toString().trim { it <= ' ' }
-        if (searchEditTextInput == searchInput) {
+        if (searchEditTextInput.isNotEmpty() && searchEditTextInput == searchInput) {
             return
         }
         doSearch(search_edittext.text.toString().trim { it <= ' ' })

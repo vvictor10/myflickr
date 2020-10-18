@@ -13,6 +13,7 @@
 /captures
 /app/build
 /app/.idea
+/schemas
 .externalNativeBuild
 .cxx
 gradlew

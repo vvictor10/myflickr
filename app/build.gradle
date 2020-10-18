@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 // build definitions & properties
 def projectName = "my_flickr"
@@ -37,6 +37,12 @@ android {
         buildConfigField "String", "MY_FLICKR_API_SECRET", "\"${flickrApiSecret}\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     signingConfigs {
@@ -130,6 +136,9 @@ dependencies {
     // Others
     implementation otherDependencies.gson
     implementation otherDependencies.reactiveNetwork
+    implementation roomDependencies.roomRuntime
+    kapt roomDependencies.roomCompiler
+    implementation roomDependencies.roomKtxCoroutines
 
     // Test
     testImplementation reactiveDependencies.rxjava

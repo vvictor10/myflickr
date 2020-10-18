@@ -3,6 +3,7 @@ package com.elysiant.myflickr.data.service.network
 import com.elysiant.myflickr.common.MyFlickrConstants
 import com.elysiant.myflickr.data.service.FlickrApi
 import com.elysiant.myflickr.data.service.PhotosService
+import com.elysiant.myflickr.models.PhotoItem
 import com.elysiant.myflickr.models.PhotosResponse
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -69,6 +70,10 @@ class FlickrApiRetrofit(private val baseUrl: String, private val apiKey: String)
     override fun searchPhotos(searchTerm: String, pageNo: Int): Observable<Result<PhotosResponse>> {
         return retrofit.create(PhotosService::class.java).searchPhotos(MyFlickrConstants.PHOTOS_METHOD,
             searchTerm, MyFlickrConstants.PHOTOS_EXTRAS, MyFlickrConstants.PHOTOS_PER_PAGE, pageNo)
+    }
+
+    override fun savePhotos(photoItems: List<PhotoItem>) {
+        TODO("Not applicable")
     }
 
 }

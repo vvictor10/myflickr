@@ -59,6 +59,14 @@ ext {
             rxjava                      : "io.reactivex.rxjava2:rxjava:2.2.20"
     ]
 
+    // Room
+
+    roomDependencies = [
+            roomRuntime                 : "androidx.room:room-runtime:2.2.5",
+            roomCompiler                : "androidx.room:room-compiler:2.2.5",
+            roomKtxCoroutines           : "androidx.room:room-ktx:2.2.5"
+    ]
+
     // Others
 
     otherDependencies = [
@@ -77,7 +85,7 @@ ext {
             mockitoCore                 : "org.mockito:mockito-core:3.5.13",
             mockitoAndroid              : "org.mockito:mockito-android:3.5.13",
             robolectric                 : "org.robolectric:robolectric:4.4",
-            daggerMock                  : "com.github.fabioCollini.daggermock:daggermock-kotlin:0.8.5",
+            daggerMock                  : "com.github.fabioCollini.daggermock:daggermock-kotlin:0.8.5"
     ]
 
 }

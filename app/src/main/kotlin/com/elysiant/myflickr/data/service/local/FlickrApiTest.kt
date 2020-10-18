@@ -1,6 +1,7 @@
 package com.elysiant.myflickr.data.service.local
 
 import com.elysiant.myflickr.data.service.FlickrApi
+import com.elysiant.myflickr.models.PhotoItem
 import com.elysiant.myflickr.models.PhotosResponse
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -9,7 +10,7 @@ import retrofit2.Response
 import retrofit2.adapter.rxjava2.Result
 import java.io.*
 
-class FlickrApiLocal(private val resourcesDirectory: String) : FlickrApi {
+class FlickrApiTest(private val resourcesDirectory: String) : FlickrApi {
 
     private val gsonInstance: Gson
         get() = GsonBuilder().create()
@@ -22,6 +23,10 @@ class FlickrApiLocal(private val resourcesDirectory: String) : FlickrApi {
         println("searchPhotos: $resourcesDirectory")
         val jsonString = fetchJsonFromFile("$resourcesDirectory/search_results.json")
         return Observable.just(Result.response(Response.success(gsonInstance.fromJson(jsonString, PhotosResponse::class.java))))
+    }
+
+    override fun savePhotos(photoItems: List<PhotoItem>) {
+        TODO("Not applicable")
     }
 
     companion object {

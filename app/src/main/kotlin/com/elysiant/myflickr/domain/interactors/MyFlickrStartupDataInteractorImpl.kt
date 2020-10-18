@@ -1,6 +1,8 @@
 package com.elysiant.myflickr.domain.interactors
 
 import android.util.LruCache
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.elysiant.myflickr.common.MyFlickrConstants
 import com.elysiant.myflickr.data.service.FlickrApi
 import com.elysiant.myflickr.domain.interactors.MyFlickrStartupDataInteractor

@@ -13,10 +13,11 @@ import timber.log.Timber
 
 /**
  * Created by vicsonvictor on 10/17/2020.
+ *
+ * Can be used to monitor network status in the background and notify listeners appropriately.
  */
 class NetworkListener {
     private var reactiveNetwork: Subscription? = null
-    private var isOnline = true
 
     fun registerNetworkListener(context: Context?) {
         unregisterNetworkListener()
@@ -39,9 +40,14 @@ class NetworkListener {
     }
 
     fun unregisterNetworkListener() {
-        if (reactiveNetwork != null && !reactiveNetwork!!.isUnsubscribed) {
-            reactiveNetwork!!.unsubscribe()
+        if (reactiveNetwork?.isUnsubscribed == false) {
+            reactiveNetwork?.unsubscribe()
         }
+    }
+
+    companion object {
+        @JvmStatic
+        var isOnline = true
     }
 
 }

@@ -1,7 +1,9 @@
 package com.elysiant.myflickr.models
 
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 
+@Entity
 class Photos(
 
 	@field:SerializedName("perpage")

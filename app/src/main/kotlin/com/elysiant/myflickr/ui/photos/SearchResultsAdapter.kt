@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
 import android.widget.ImageView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
@@ -66,7 +65,7 @@ class SearchResultsAdapter(private val context: Context, private val listener: V
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (photoItems[position].id == null) { // Dummy Photo Item inserted
+        return if (photoItems[position].id == "") { // TODO: Dummy Photo Item inserted - move to a constant
             VIEW_TYPE_LOADING_PROGRESS
         } else {
             VIEW_TYPE_ITEM
@@ -157,7 +156,7 @@ class SearchResultsAdapter(private val context: Context, private val listener: V
      * Shows Loading indicator.
      */
     fun showLoadingMoreState() {
-        photoItems.add(PhotoItem())
+        photoItems.add(PhotoItem(id = ""))
         loadingIndicatorRow = photoItems.size - 1
         recyclerView?.post {
             notifyItemInserted(photoItems.size - 1)
@@ -182,20 +181,6 @@ class SearchResultsAdapter(private val context: Context, private val listener: V
         val anim = AlphaAnimation(0.0f, 1.0f)
         anim.duration = 350
         view.startAnimation(anim)
-    }
-
-    /**
-     * Here is the key method to apply the animation
-     */
-    private fun setAnimation(viewToAnimate: View, position: Int) {
-        // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition) {
-            setFadeAnimation(viewToAnimate)
-//            val animation: Animation =
-//                AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left)
-//            viewToAnimate.startAnimation(animation)
-            lastPosition = position
-        }
     }
 
     companion object {
