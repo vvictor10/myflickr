@@ -3,6 +3,7 @@ package com.elysiant.myflickr.ui.photos
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.elysiant.myflickr.R
 import com.elysiant.myflickr.common.MyFlickrConstants
@@ -40,9 +41,11 @@ class FullscreenPhotoActivity : BaseNavigationActivity() {
         val imageUrl = intent.getStringExtra(MyFlickrConstants.FULL_SCREEN_PHOTO_URL_EXTRA)
 
         if (imageUrl == null) {
-            fullScreenImageView.setImageDrawable(getDrawable(android.R.drawable.stat_notify_error))
+            fullScreenImageView.setImageDrawable(getDrawable(android.R.drawable.stat_sys_warning))
         } else {
-            picasso.load(imageUrl).into(fullScreenImageView)
+            picasso.load(imageUrl)
+                .placeholder(getDrawable(android.R.drawable.stat_sys_warning))
+                .into(fullScreenImageView)
         }
     }
 

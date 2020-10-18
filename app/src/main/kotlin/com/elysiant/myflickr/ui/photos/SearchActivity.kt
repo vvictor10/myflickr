@@ -119,15 +119,6 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
         search_edittext.isEnabled = true
     }
 
-    @OnClick(R.id.search_icon)
-    fun onSearchIconClicked() {
-        val searchEditTextInput = search_edittext.text.toString().trim { it <= ' ' }
-        if (searchEditTextInput.isNotEmpty() && searchEditTextInput == searchInput) {
-            return
-        }
-        doSearch(search_edittext.text.toString().trim { it <= ' ' })
-    }
-
     override fun onSearch(photos: Photos, pageNo: Int) {
         Timber.i("Search Results for: %s, pageNo: %d, total pages: %d", search_edittext.text.trim(), pageNo, photos.totalNoOfPages)
         if (pageNo > 1) { // Pagination response
@@ -234,8 +225,7 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
         search_results_recycler_view.layoutManager = searchResultsLayoutManager
         search_results_recycler_view.adapter = searchResultsAdapter
 
-        search_results_recycler_view.itemAnimator
-        search_results_recycler_view.setItemViewCacheSize(MyFlickrConstants.PHOTOS_PER_PAGE)
+        search_results_recycler_view.setItemViewCacheSize(60)
 
         search_results_recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -329,10 +319,10 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
 
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
             // make sure menus are initialized since text watcher is created before menus
-            clear_icon.visibility = when (s.isNotEmpty()) {
-                true -> View.VISIBLE
-                false -> View.INVISIBLE
-            }
+//            clear_icon.visibility = when (s.isNotEmpty()) {
+//                true -> View.VISIBLE
+//                false -> View.INVISIBLE
+//            }
 
             searchInput = s.toString()
         }

@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 // build definitions & properties
 def projectName = "my_flickr"
-def isCIBuild = false // TODO: Check if its not CI build to load local com.elysiant.myflickr.app init. properties
+def isCIBuild = false // TODO: Check if its not CI build to load local init. properties
 def env = System.getenv()
 def projectEnv = new HashMap()
 projectEnv.putAll(env)
@@ -57,7 +57,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             debuggable false
@@ -80,6 +80,10 @@ android {
             androidTest.java.srcDirs = ['src/androidTest/java']
         }
     }
+
+    lintOptions {
+        abortOnError true
+    }
 }
 
 dependencies {
@@ -93,6 +97,7 @@ dependencies {
     implementation androidXdependencies.androidXCore
     implementation androidXdependencies.material
     implementation androidXdependencies.appCompat
+    implementation androidXdependencies.constraintLayout
     implementation androidXdependencies.recyclerView
     implementation androidXdependencies.espressoCore
     implementation androidXdependencies.androidXJunit

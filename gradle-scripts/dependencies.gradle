@@ -8,6 +8,7 @@ ext {
             recyclerView                : "androidx.recyclerview:recyclerview:1.1.0",
             appCompat                   : "androidx.appcompat:appcompat:1.2.0",
             legacy                      : "androidx.legacy:legacy-support-v4:1.0.0",
+            constraintLayout            : "androidx.constraintlayout:constraintlayout:2.0.2",
             drawerLayout                : "androidx.drawerlayout:drawerlayout:1.1.1",
             testCore                    : "androidx.test:core:1.1.0",
             testRunner                  : "androidx.test:runner:1.1.0",

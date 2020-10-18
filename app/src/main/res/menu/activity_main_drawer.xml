@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="navigation_view"
+    tools:ignore="HardcodedText">
 
     <group android:checkableBehavior="single">
         <item
@@ -10,14 +11,14 @@
             android:title="Explore" />
         <item
             android:icon="@drawable/ic_search_black_24dp"
-            android:title="Search" />
+            android:title="Search"/>
         <item
             android:id="@+id/nav_favorites"
             android:icon="@drawable/ic_favorite_border_black_24dp"
             android:title="Favorites" />
     </group>
 
-    <item android:title="Manage">
+    <item android:title="Manage" tools:ignore="HardcodedText">
         <menu>
             <item
                 android:id="@+id/nav_settings"

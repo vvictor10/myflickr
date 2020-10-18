@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.widget.ImageView
 import androidx.annotation.NonNull
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.elysiant.myflickr.R
@@ -51,8 +52,8 @@ class SearchResultsAdapter(private val context: Context, private val listener: P
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         if (viewHolder is PhotoItemViewHolder) {
-            setFadeAnimation(viewHolder.itemView)
             viewHolder.bind(context, photoItems[position], listener, picasso, imageSize)
+            setFadeAnimation(viewHolder.itemView)
         } else if (viewHolder is LoadingIndicatorViewHolder) {
             loadingIndicatorView = viewHolder.loadingIndicatorView
             loadingIndicatorView?.visibility = View.VISIBLE
@@ -109,7 +110,7 @@ class SearchResultsAdapter(private val context: Context, private val listener: P
         private fun loadImage(context: Context, imageView: ImageView, photoItem: PhotoItem, picasso: Picasso) {
 
             if (photoItem.smallUrl.isNullOrBlank()) {
-                imageView.setImageDrawable(context.getDrawable(android.R.drawable.stat_notify_error))
+                imageView.setImageDrawable(ContextCompat.getDrawable(context, android.R.drawable.stat_notify_error))
                 return
             }
 
@@ -128,7 +129,9 @@ class SearchResultsAdapter(private val context: Context, private val listener: P
                 }
             }
 
-            picasso.load(imageUrl).into(picassoTarget)
+            picasso.load(imageUrl)
+                .placeholder(ContextCompat.getDrawable(context, android.R.drawable.stat_notify_error))
+                .into(picassoTarget)
         }
 
         fun bind(context: Context, data: PhotoItem?, listener: PhotoItemListener, picasso: Picasso, imageSize: Int) {
