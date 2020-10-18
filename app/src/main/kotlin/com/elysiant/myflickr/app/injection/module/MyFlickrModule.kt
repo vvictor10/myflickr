@@ -11,8 +11,6 @@ import com.elysiant.myflickr.data.localstorage.MyFlickrRoomDatabase
 import com.elysiant.myflickr.data.service.FlickrApi
 import com.elysiant.myflickr.data.service.network.FlickrApiRetrofit
 import com.elysiant.myflickr.data.service.room.FlickrApiLocalStorage
-import com.elysiant.myflickr.domain.interactors.MyFlickrStartupDataInteractor
-import com.elysiant.myflickr.domain.interactors.MyFlickrStartupDataInteractorImpl
 import com.elysiant.myflickr.domain.interactors.PhotosDataInteractor
 import com.elysiant.myflickr.domain.interactors.PhotosDataInteractorImpl
 import com.jakewharton.picasso.OkHttp3Downloader
@@ -39,7 +37,7 @@ open class MyFlickrModule(private val context: Context) {
     private val mFlickr: FlickrApi by lazy {
         Timber.i("Creating new FlickrApiRetrofit instance.")
         FlickrApiRetrofit(
-            MyFlickrEnvironmentEnum.PROD.flickrApiBaseUrl, BuildConfig.MY_FLICKR_API_KEY)
+            MyFlickrEnvironmentEnum.PROD.baseUrl, BuildConfig.MY_FLICKR_API_KEY)
     }
 
     @ForApplication
@@ -88,15 +86,6 @@ open class MyFlickrModule(private val context: Context) {
     @Singleton
     open fun providePhotosDataInteractor(flickrApi: FlickrApi, flickrApiLocalStorage: FlickrApiLocalStorage): PhotosDataInteractor {
         return PhotosDataInteractorImpl(flickrApi, flickrApiLocalStorage)
-    }
-
-    @Provides
-    @Singleton
-    fun provideMyFlickrStartupDataInteractor(flickrApi: FlickrApi, lruCache: LruCache<Any, Any>): MyFlickrStartupDataInteractor {
-        return MyFlickrStartupDataInteractorImpl(
-            lruCache,
-            flickrApi
-        )
     }
 
     @Provides

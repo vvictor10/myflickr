@@ -22,8 +22,7 @@ interface PhotosContract {
         fun unBindView()
         fun doSearch(searchTerm: String)
         fun doSearchNextPage(searchTerm: String, pageNo: Int): Boolean
-        fun doGetPhoto(photoId: String)
-        fun clearNextSearchPageNo()
+        fun clearNextSearchPageInfo()
     }
 }
 

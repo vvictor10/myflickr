@@ -9,20 +9,20 @@ object MyFlickrConstants {
 
     const val HTTP = "http"
     const val HTTP_TIMEOUT_VALUE = 10
+    const val FULL_SCREEN_PHOTO_URL_EXTRA = "PhotoUrlExtra"
+    const val LOADING_MORE_PHOTO_ID_PLACE_HOLDER = "FAKE_PHOTO_ID"
 
-    const val HEART_CROSS_FADE_ANIMATION_DURATION = 150
+    // API Constants
+    const val PHOTOS_PER_PAGE = 200
+    const val PHOTOS_METHOD = "flickr.photos.search"
+    const val API_KEY = "api_key"
+    const val RESPONSE_FORMAT = "format"
+    const val RESPONSE_FORMAT_VALUE = "json"
+    const val NO_JSON_CALLBACK = "nojsoncallback"
+    const val PHOTOS_EXTRAS = "url_s,url_c"
 
     // Disk cache size used for Picasso - set to 50MB for now.
     @JvmField
     val IMAGE_DISK_CACHE_SIZE = DecimalByteUnit.MEGABYTES.toBytes(50).toInt()
 
-    const val CACHE_KEY_START_UP_PHOTOS = "startupCachedPhotos"
-
-    const val FULL_SCREEN_PHOTO_URL_EXTRA = "PhotoUrlExtra"
-
-    // API Constants
-
-    const val PHOTOS_PER_PAGE = 200
-    const val PHOTOS_METHOD = "flickr.photos.search"
-    const val PHOTOS_EXTRAS = "url_s,url_c"
 }

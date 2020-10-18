@@ -53,11 +53,7 @@ constructor(private val photosDataInteractor: PhotosDataInteractor) : PhotosCont
         return false
     }
 
-    override fun doGetPhoto(photoId: String) {
-//        disposables.add(getVenueSubscription(photoId))
-    }
-
-    override fun clearNextSearchPageNo() {
+    override fun clearNextSearchPageInfo() {
         currentSearchNextPageNo = null
     }
 
@@ -87,13 +83,6 @@ constructor(private val photosDataInteractor: PhotosDataInteractor) : PhotosCont
         disposables.clear()
     }
 
-//    private fun getVenueSubscription(venueId: String): Disposable {
-//        return venuesDataInteractor.getVenue(venueId)
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeOn(Schedulers.io())
-//                .subscribeWith(VenueSubscriber(viewListener))
-//    }
-
     private fun getSearchSubscription(searchTerm: String, pageNo: Int): Disposable {
         return photosDataInteractor.searchForPhotos(searchTerm, pageNo)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -114,29 +103,10 @@ constructor(private val photosDataInteractor: PhotosDataInteractor) : PhotosCont
         override fun onNext(result: Result<PhotosResponse>) {
             val photosResponse = result.response()?.body()
             photosResponse?.photos?.let {
-                Timber.i("No. of photos for search: %d", photosResponse.photos.photosList.size)
+                Timber.i("No. of photos received in search results: %d", photosResponse.photos.photosList.size)
                 listener?.onSearch(it, pageNo)
             }
         }
     }
-
-//    class VenueSubscriber(private val listener: PhotosContract.View?) : DisposableObserver<Result<VenueResponse>>() {
-//
-//        override fun onError(e: Throwable) {
-//            listener?.onError()
-//        }
-//
-//        override fun onNext(result: Result<VenueResponse>) {
-//            val venueResponse = result.response()?.body()
-//            venueResponse?.singleVenueResponse?.venue?.let {
-//                Timber.i("Venue details fetched for %s", venueResponse.singleVenueResponse?.venue?.name)
-//                listener?.onVenue(it)
-//            }
-//        }
-//
-//        override fun onComplete() {
-//            dispose()
-//        }
-//    }
 
 }

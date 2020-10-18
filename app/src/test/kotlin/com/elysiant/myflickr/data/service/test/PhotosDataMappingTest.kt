@@ -1,4 +1,4 @@
-package com.elysiant.myflickr.data.service.local
+package com.elysiant.myflickr.data.service.test
 
 import com.elysiant.myflickr.MyFlickrTestBase
 import org.assertj.core.api.Assertions

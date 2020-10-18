@@ -12,6 +12,7 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.elysiant.myflickr.R
+import com.elysiant.myflickr.common.MyFlickrConstants
 import com.elysiant.myflickr.models.PhotoItem
 import com.elysiant.myflickr.ui.common.LoadingIndicatorView
 import com.squareup.picasso.Picasso
@@ -20,24 +21,22 @@ import kotlinx.android.synthetic.main.photo_item_view.view.*
 import timber.log.Timber
 import java.util.*
 
-
-class SearchResultsAdapter(private val context: Context, private val listener: VenueListener,
-                           private val picasso: Picasso, screenWidth: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SearchResultsAdapter(private val context: Context, private val listener: PhotoItemListener,
+                           private val picasso: Picasso, screenWidth: Int) : RecyclerView.Adapter<ViewHolder>() {
 
     private var recyclerView: RecyclerView? = null
     private val imageSize: Int = (screenWidth * PHOTO_IMAGE_PERCENT).toInt()
     private var photoItems: MutableList<PhotoItem> = ArrayList()
     private var loadingIndicatorRow = -1
     private var loadingIndicatorView : LoadingIndicatorView? = null
-    private var lastPosition = -1
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         this.recyclerView = recyclerView
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        lateinit var viewHolder: RecyclerView.ViewHolder
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        lateinit var viewHolder: ViewHolder
         val inflater = LayoutInflater.from(parent.context)
         viewHolder = if (viewType == VIEW_TYPE_ITEM) {
             PhotoItemViewHolder(inflater.inflate(R.layout.photo_item_view, parent, false))
@@ -50,7 +49,7 @@ class SearchResultsAdapter(private val context: Context, private val listener: V
 
     }
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         if (viewHolder is PhotoItemViewHolder) {
             setFadeAnimation(viewHolder.itemView)
             viewHolder.bind(context, photoItems[position], listener, picasso, imageSize)
@@ -65,7 +64,7 @@ class SearchResultsAdapter(private val context: Context, private val listener: V
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (photoItems[position].id == "") { // TODO: Dummy Photo Item inserted - move to a constant
+        return if (photoItems[position].id == MyFlickrConstants.LOADING_MORE_PHOTO_ID_PLACE_HOLDER) {
             VIEW_TYPE_LOADING_PROGRESS
         } else {
             VIEW_TYPE_ITEM
@@ -94,7 +93,7 @@ class SearchResultsAdapter(private val context: Context, private val listener: V
         Timber.d("Total no. of products now %d", this.photoItems.size)
     }
 
-    interface VenueListener {
+    interface PhotoItemListener {
         fun onPhotoItemClicked(photoItem: PhotoItem)
     }
 
@@ -128,7 +127,7 @@ class SearchResultsAdapter(private val context: Context, private val listener: V
             picasso.load(imageUrl).into(picassoTarget)
         }
 
-        fun bind(context: Context, data: PhotoItem?, listener: VenueListener, picasso: Picasso, imageSize: Int) {
+        fun bind(context: Context, data: PhotoItem?, listener: PhotoItemListener, picasso: Picasso, imageSize: Int) {
             data?.let {
                 val layoutParams = photoItemImageView.layoutParams
                 layoutParams.height = imageSize
@@ -156,7 +155,7 @@ class SearchResultsAdapter(private val context: Context, private val listener: V
      * Shows Loading indicator.
      */
     fun showLoadingMoreState() {
-        photoItems.add(PhotoItem(id = ""))
+        photoItems.add(PhotoItem(id = MyFlickrConstants.LOADING_MORE_PHOTO_ID_PLACE_HOLDER))
         loadingIndicatorRow = photoItems.size - 1
         recyclerView?.post {
             notifyItemInserted(photoItems.size - 1)
@@ -179,7 +178,7 @@ class SearchResultsAdapter(private val context: Context, private val listener: V
 
     private fun setFadeAnimation(view: View) {
         val anim = AlphaAnimation(0.0f, 1.0f)
-        anim.duration = 350
+        anim.duration = 500
         view.startAnimation(anim)
     }
 

@@ -42,12 +42,11 @@ class FlickrApiRetrofit(private val baseUrl: String, private val apiKey: String)
 
                     val urlBuilder = request.url().newBuilder()
 
-                    // add client id
-                    urlBuilder.addQueryParameter("api_key", apiKey).build()
-
-                    // other parameters
-                    urlBuilder.addQueryParameter("format", "json").build()
-                    urlBuilder.addQueryParameter("nojsoncallback", "1").build()
+                    // add client id & other parameters
+                    urlBuilder.addQueryParameter(MyFlickrConstants.API_KEY, apiKey).build()
+                    urlBuilder.addQueryParameter(MyFlickrConstants.RESPONSE_FORMAT,
+                        MyFlickrConstants.RESPONSE_FORMAT_VALUE).build()
+                    urlBuilder.addQueryParameter(MyFlickrConstants.NO_JSON_CALLBACK, "1").build()
 
                     request = request.newBuilder().url(urlBuilder.build()).build()
 

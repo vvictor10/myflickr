@@ -32,12 +32,6 @@
             android:label="@string/title_activity_fullscreen_photo"
             android:theme="@style/AppTheme.NoActionBar.StatusBar" />
 
-        <!-- Services -->
-        <service
-            android:name=".service.MyFlickrStartupIntentService"
-            android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-
     </application>
 
 </manifest>

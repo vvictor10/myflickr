@@ -1,6 +1,6 @@
 package com.elysiant.myflickr.domain.interactors.mocks
 
-import com.elysiant.myflickr.data.service.local.FlickrApiTest
+import com.elysiant.myflickr.data.service.test.FlickrApiTest
 import com.elysiant.myflickr.domain.interactors.PhotosDataInteractor
 import com.elysiant.myflickr.models.PhotosResponse
 import io.reactivex.Observable

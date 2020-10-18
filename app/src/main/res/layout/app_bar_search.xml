@@ -11,16 +11,13 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <include
-            android:id="@+id/search_toolbar_container"
-            layout="@layout/search_toolbar_container" />
+        <include layout="@layout/search_toolbar_container" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_search" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/map_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

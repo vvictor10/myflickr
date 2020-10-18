@@ -4,7 +4,7 @@ import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 
 @Entity
-class PhotosResponse(
+data class PhotosResponse(
 
 	@field:SerializedName("stat")
 	val stat: String? = null,

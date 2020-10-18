@@ -1,4 +1,4 @@
-package com.elysiant.myflickr.data.service.local
+package com.elysiant.myflickr.data.service.test
 
 import com.elysiant.myflickr.data.service.FlickrApi
 import com.elysiant.myflickr.models.PhotoItem

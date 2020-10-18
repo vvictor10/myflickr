@@ -10,6 +10,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import java.io.IOException
 import java.lang.reflect.Type
 
+/**
+ * A custom CallAdapterFactory provides a way to intercept the response and handle errors as needed.
+ */
 class MyFlickrRxJavaCallAdapterFactory private constructor() : CallAdapter.Factory() {
     private val original: RxJava2CallAdapterFactory = RxJava2CallAdapterFactory.create()
 

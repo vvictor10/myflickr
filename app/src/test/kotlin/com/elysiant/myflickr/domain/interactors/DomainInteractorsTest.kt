@@ -1,32 +1,13 @@
 package com.elysiant.myflickr.domain.interactors
 
 import com.elysiant.myflickr.MyFlickrTestBase
-import com.elysiant.myflickr.common.MyFlickrConstants
-import com.elysiant.myflickr.domain.interactors.mocks.MockMyFlickrStartupDataInteractor
 import org.assertj.core.api.Assertions
-import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
 class DomainInteractorsTest : MyFlickrTestBase() {
-
-    @Test
-    fun testStartupDataInteractor() {
-
-        val photosList = flickrApi.searchPhotos("testing", 1).blockingFirst().response()?.body()?.photos?.photosList
-
-        Mockito.`when` (mockLruCache.get(MyFlickrConstants.CACHE_KEY_START_UP_PHOTOS))
-                .thenReturn(photosList)
-
-        // Test cache population from local resources file
-
-        val cachedResult = mockLruCache.get(MyFlickrConstants.CACHE_KEY_START_UP_PHOTOS) as? List<*>
-        Assert.assertNotNull(cachedResult)
-        Assert.assertEquals(50, cachedResult?.size)
-    }
 
     @Test
     fun testSearchPhotosUsingPhotosDataInteractor() {

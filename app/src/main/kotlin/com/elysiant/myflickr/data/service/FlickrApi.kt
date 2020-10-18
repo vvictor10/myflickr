@@ -4,10 +4,10 @@ import com.elysiant.myflickr.models.PhotoItem
 import com.elysiant.myflickr.models.PhotosResponse
 import io.reactivex.Observable
 import retrofit2.adapter.rxjava2.Result
+
 /**
  * Created by vicsonvictor on 10/17/2020.
  */
-
 interface FlickrApi {
 
     // Fetch Photos

@@ -15,12 +15,6 @@
         <item name="android:statusBarColor">@color/primary_dark</item>
     </style>
 
-    <style name="AppTheme.NoActionBar.TranslucentFullScreen">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@color/primary_dark</item>
-        <item name="android:windowFullscreen">true</item>
-    </style>
-
     <style name="AppTheme.NoActionBar.StatusBar">
         <item name="android:statusBarColor">?android:attr/colorPrimaryDark</item>
 <!--        <item name="android:background">?android:attr/colorPrimaryDark</item>-->
@@ -40,11 +34,6 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="block">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
     <style name="search_edit">
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/toolbar_text</item>
@@ -58,45 +47,6 @@
         <item name="android:textColorHint">@color/toolbar_hint_text</item>
         <item name="android:textCursorDrawable">@drawable/cursor_gray</item>
         <item name="android:backgroundTint">@color/black_1</item>
-    </style>
-
-    <style name="toolbar_title">
-        <item name="android:textColor">@color/toolbar_text</item>
-        <item name="android:textSize">@dimen/general_text_size</item>
-    </style>
-
-    <style name="list_separator">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/black_1_15</item>
-    </style>
-
-    <style name="suggested_search_header">
-        <item name="android:singleLine">true</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:letterSpacing">0.03</item>
-    </style>
-
-    <style name="suggested_search_item_text">
-        <item name="android:maxLines">1</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:letterSpacing">0.03</item>
-    </style>
-
-    <style name="toolbar_with_back_navigation">
-        <item name="navigationIcon">@drawable/appbar_back_white</item>
-    </style>
-
-    <style name="FullscreenTheme" parent="AppTheme">
-        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowBackground">@null</item>
-        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
-        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
-    </style>
-
-    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/black_overlay</item>
     </style>
 
 </resources>

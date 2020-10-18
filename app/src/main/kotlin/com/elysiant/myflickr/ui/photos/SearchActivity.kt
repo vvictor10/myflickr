@@ -37,7 +37,7 @@ import javax.inject.Inject
  *  https://github.com/googlesamples/android-dynamic-code-loading
  */
 open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
-    SearchResultsAdapter.VenueListener {
+    SearchResultsAdapter.PhotoItemListener {
 
     @Inject
     lateinit var picasso: Picasso
@@ -291,7 +291,7 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
             searchResultsAdapter.hideLoadingMoreState()
 
             if (!forceCancellation) {
-                photosPresenter.clearNextSearchPageNo()
+                photosPresenter.clearNextSearchPageInfo()
             }
         }
     }
@@ -316,7 +316,7 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
         return TextView.OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val searchString = search_edittext.text.toString().trim { it <= ' ' }
-                Timber.i("OnEditorActionListener User Action|%s|%s|%s", "Search for Venues", "Search String", searchString)
+                Timber.d("OnEditorActionListener User Action|%s|%s|%s", "Search for Photos", "Search String", searchString)
                 doSearch(searchString)
                 return@OnEditorActionListener true
             }

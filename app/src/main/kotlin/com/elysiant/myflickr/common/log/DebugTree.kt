@@ -7,7 +7,7 @@ import java.util.regex.Pattern
 /**
  * From the original [Timber.DebugTree].
  */
-class DebugTree(protected val applicationTag: String) : Timber.DebugTree() {
+class DebugTree(private val applicationTag: String) : Timber.DebugTree() {
 
     override fun v(message: String?, vararg args: Any) {
         throwShade(Log.VERBOSE, formatString(message, *args), null)

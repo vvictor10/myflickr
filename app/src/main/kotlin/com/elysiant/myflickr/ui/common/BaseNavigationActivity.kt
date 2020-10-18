@@ -2,18 +2,17 @@ package com.elysiant.myflickr.ui.common
 
 import android.content.Context
 import android.content.Intent
-import android.view.*
+import android.view.MenuItem
+import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.elysiant.myflickr.BuildConfig
 import com.elysiant.myflickr.R
 import com.elysiant.myflickr.app.MyFlickrApplication
 import com.elysiant.myflickr.common.MyFlickrConstants
@@ -24,7 +23,6 @@ import com.elysiant.myflickr.ui.photos.FullscreenPhotoActivity
 import com.elysiant.myflickr.util.NetworkListener
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.custom_toast.view.*
 import kotlinx.android.synthetic.main.search_toolbar.*
 
 /**

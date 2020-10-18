@@ -14,8 +14,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * A component to host all business logic associated with Venue data.
- * Acts as a facade between the data service layer and the UI code components.
+ * Acts as a facade between the data service layer and the UI Layer.
  */
 @Singleton
 class PhotosDataInteractorImpl @Inject

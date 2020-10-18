@@ -5,9 +5,7 @@ import com.elysiant.myflickr.app.MyFlickrApplication
 import com.elysiant.myflickr.app.injection.module.MyFlickrModule
 import com.elysiant.myflickr.data.localstorage.MyFlickrRoomDatabase
 import com.elysiant.myflickr.data.service.room.FlickrApiLocalStorage
-import com.elysiant.myflickr.domain.interactors.MyFlickrStartupDataInteractor
 import com.elysiant.myflickr.domain.interactors.PhotosDataInteractor
-import com.elysiant.myflickr.service.MyFlickrStartupIntentService
 import com.squareup.picasso.Picasso
 import dagger.Component
 import javax.inject.Singleton
@@ -25,15 +23,11 @@ interface MyFlickrComponent {
 
     fun providePhotosDataInteractor(): PhotosDataInteractor
 
-    fun provideMyFlickrStartupDataInteractor(): MyFlickrStartupDataInteractor
-
     fun providePicasso(): Picasso
 
     fun provideLruCache(): LruCache<Any, Any>
 
     // injects
     fun inject(app: MyFlickrApplication)
-
-    fun inject(myFlickrStartupIntentService: MyFlickrStartupIntentService)
 
 }

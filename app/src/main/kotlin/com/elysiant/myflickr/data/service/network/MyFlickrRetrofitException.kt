@@ -4,6 +4,10 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import java.io.IOException
 
+/**
+ * This class can be used to handle specific scenarios like "unauthorized" error etc. Gives
+ * a standard way to pass through and handle errors in the different layers.
+ */
 class MyFlickrRetrofitException : RuntimeException {
 
     /**

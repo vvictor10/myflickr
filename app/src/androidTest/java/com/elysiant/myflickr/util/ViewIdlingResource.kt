@@ -11,6 +11,9 @@ import org.hamcrest.Matcher
 import java.lang.reflect.Field
 
 /**
+ * This IdlingResource can be used in UI tests to wait for states of view elements to be updated
+ * based on data updates etc.
+ *
  * @param viewMatcher The matcher to find the view.
  * @param idleMatcher The matcher condition to be fulfilled to be considered idle.
  */

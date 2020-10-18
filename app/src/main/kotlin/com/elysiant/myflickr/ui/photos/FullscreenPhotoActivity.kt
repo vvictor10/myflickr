@@ -2,11 +2,7 @@ package com.elysiant.myflickr.ui.photos
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
-import android.view.MotionEvent
-import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import com.elysiant.myflickr.R
 import com.elysiant.myflickr.common.MyFlickrConstants
@@ -22,8 +18,6 @@ class FullscreenPhotoActivity : BaseNavigationActivity() {
 
     private lateinit var fullScreenImageView: ImageView
 
-    private var isFullscreen: Boolean = false
-
     override fun getNavigationView(): NavigationView? {
         return null
     }
@@ -37,11 +31,8 @@ class FullscreenPhotoActivity : BaseNavigationActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_fullscreen_photo)
-        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         component().inject(this)
-
-        isFullscreen = true
 
         // Set up the user interaction to manually show or hide the system UI.
         fullScreenImageView = findViewById(R.id.full_screen_photo_image)
