@@ -6,13 +6,8 @@ ext {
             androidXCore                : "androidx.core:core-ktx:1.3.2",
             material                    : "com.google.android.material:material:1.2.1",
             recyclerView                : "androidx.recyclerview:recyclerview:1.1.0",
-            constraintLayout            : "androidx.constraintlayout:constraintlayout:1.1.3",
-            navigationFragment          : "androidx.navigation:navigation-fragment-ktx:2.1.0",
-            navigationUi                : "androidx.navigation:navigation-ui-ktx:2.1.0",
-            cardView                    : "androidx.cardview:cardview:1.0.0",
             appCompat                   : "androidx.appcompat:appcompat:1.2.0",
             legacy                      : "androidx.legacy:legacy-support-v4:1.0.0",
-            customTabs                  : "androidx.browser:browser:1.2.0",
             drawerLayout                : "androidx.drawerlayout:drawerlayout:1.1.1",
             testCore                    : "androidx.test:core:1.1.0",
             testRunner                  : "androidx.test:runner:1.1.0",
@@ -22,12 +17,6 @@ ext {
             espressoIdling              : "androidx.test.espresso:espresso-idling-resource:3.1.1"
     ]
 
-    // Play Services
-
-    playServicesDependencies = [
-            maps                        : "com.google.android.gms:play-services-maps:17.0.0"
-    ]
-
     // Dagger
 
     daggerDependencies = [
@@ -35,7 +24,6 @@ ext {
             daggerCompiler              : "com.google.dagger:dagger-compiler:2.22",
             glassfish                   : "org.glassfish:javax.annotation:10.0-b28"
     ]
-
 
     // Square
 

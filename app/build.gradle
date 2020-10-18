@@ -92,14 +92,9 @@ dependencies {
     // support libs
     implementation androidXdependencies.androidXCore
     implementation androidXdependencies.material
-    implementation androidXdependencies.cardView
     implementation androidXdependencies.appCompat
     implementation androidXdependencies.recyclerView
-    implementation androidXdependencies.constraintLayout
-    implementation androidXdependencies.navigationFragment
-    implementation androidXdependencies.navigationUi
     implementation androidXdependencies.espressoCore
-    implementation androidXdependencies.cardView
     implementation androidXdependencies.androidXJunit
 
     // Timber

@@ -1,6 +1,6 @@
 ## MyFlickr - Photo Viewer based on the Flickr Open API
 
-The app enables users to search for photos on the Flickr platform. Clicking on a search result item from the paginated list displays the image on a full screen, which can be viewed in Portrait and Landscape mode. The app also saves the photo data retrieved from Flickr in a local database, which is used a fallback during offline mode.
+The app enables users to search for photos on the Flickr platform. Clicking on a search result item from the paginated list displays the image on a full screen, which can be viewed in Portrait and Landscape mode. The app also saves the photos data retrieved from Flickr in a local database, which is used a fallback during offline mode.
 
 ### Libraries
 
@@ -14,10 +14,12 @@ Apart from the Android SDK & other standard libraries, few other open source lib
 6. **Picasso** - Image loading.
 7. **Butterknife** - View binding.
 8. **Timber** - Logging.
-9. **Junit** - Unit testing.
-10. **AssertJ** - Assertions.
-11. **Mockito** - Android Instrumentation tests.
-12. **Room** - Local database.
+9. **Room** - Local database.
+10. **ReactiveNetwork** - Network Monitoring.
+11. **Junit** - Unit testing.
+12. **AssertJ** - Assertions.
+13. **Mockito** - Android Instrumentation tests.
+14. **Espresso** - Instrumentation tests.
 
 ### Technicals
 
