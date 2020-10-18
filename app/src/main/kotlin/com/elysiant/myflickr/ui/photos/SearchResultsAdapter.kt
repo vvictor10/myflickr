@@ -73,7 +73,11 @@ class SearchResultsAdapter(private val context: Context, private val listener: P
 
     override fun getItemId(position: Int): Long {
         val photo: PhotoItem? = photoItems[position]
-        return photo?.id?.toLong() ?: 0
+        return if (photo?.id == MyFlickrConstants.LOADING_MORE_PHOTO_ID_PLACE_HOLDER) {
+            0
+        } else {
+            photo?.id?.toLong() ?: 0
+        }
     }
 
     override fun onViewDetachedFromWindow(@NonNull holder: ViewHolder) {
