@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MyFlickr</string>
-    <string name="connectivity_error">You are Offline!</string>
+    <string name="connectivity_error">You are Offline! Please check your internet connectivity.</string>
     <string name="search_hint">What would you like to see?</string>
     <string name="search_no_results_response">Sorry, we couldn\'t find any photos for \"%s\"</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
