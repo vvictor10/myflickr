@@ -20,6 +20,7 @@ import com.elysiant.myflickr.R
 import com.elysiant.myflickr.models.PhotoItem
 import com.elysiant.myflickr.models.Photos
 import com.elysiant.myflickr.ui.common.BaseNavigationActivity
+import com.elysiant.myflickr.util.NetworkStateMonitor
 import com.google.android.material.navigation.NavigationView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_search.*
@@ -233,6 +234,9 @@ open class SearchActivity : BaseNavigationActivity(), PhotosContract.View,
      * to fetch the next page if it exists.
      */
     private fun fetchNextPageOfSearchResults() {
+        if (!NetworkStateMonitor.isOnline) {
+            return
+        }
         currentItemsCount = searchResultsLayoutManager.itemCount
         lastVisibleAdapterItemPosition = searchResultsLayoutManager.findLastVisibleItemPosition()
         if (isLoadingMorePhotos) {

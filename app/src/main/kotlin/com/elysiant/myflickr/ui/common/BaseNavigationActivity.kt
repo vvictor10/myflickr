@@ -20,7 +20,7 @@ import com.elysiant.myflickr.models.PhotoItem
 import com.elysiant.myflickr.ui.component.ActivityComponent
 import com.elysiant.myflickr.ui.component.DaggerActivityComponent
 import com.elysiant.myflickr.ui.photos.FullscreenPhotoActivity
-import com.elysiant.myflickr.util.NetworkListener
+import com.elysiant.myflickr.util.NetworkStateMonitor
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.search_toolbar.*
@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.search_toolbar.*
  */
 abstract class BaseNavigationActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private var networkListener: NetworkListener = NetworkListener()
+    private var networkStateMonitor: NetworkStateMonitor = NetworkStateMonitor()
 
     private val activityComponent: ActivityComponent by lazy {
         DaggerActivityComponent.builder()
@@ -39,12 +39,12 @@ abstract class BaseNavigationActivity : AppCompatActivity(), NavigationView.OnNa
     }
     override fun onResume() {
         super.onResume()
-        networkListener.registerNetworkListener(this)
+        networkStateMonitor.register(this)
     }
 
     override fun onPause() {
         super.onPause()
-        networkListener.unregisterNetworkListener()
+        networkStateMonitor.unregister()
     }
 
     override fun onBackPressed() {

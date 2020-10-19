@@ -1,7 +1,6 @@
 package com.elysiant.myflickr.util
 
 import android.content.Context
-import androidx.core.content.ContextCompat
 import com.elysiant.myflickr.R
 import com.elysiant.myflickr.ui.common.BaseNavigationActivity
 import com.github.pwittchen.reactivenetwork.library.ConnectivityStatus
@@ -16,11 +15,11 @@ import timber.log.Timber
  *
  * Can be used to monitor network status in the background and notify listeners appropriately.
  */
-class NetworkListener {
+class NetworkStateMonitor {
     private var reactiveNetwork: Subscription? = null
 
-    fun registerNetworkListener(context: Context?) {
-        unregisterNetworkListener()
+    fun register(context: Context?) {
+        unregister()
         reactiveNetwork = ReactiveNetwork().enableInternetCheck()
             .observeConnectivity(context)
             .subscribeOn(Schedulers.io())
@@ -39,7 +38,7 @@ class NetworkListener {
             }
     }
 
-    fun unregisterNetworkListener() {
+    fun unregister() {
         if (reactiveNetwork?.isUnsubscribed == false) {
             reactiveNetwork?.unsubscribe()
         }

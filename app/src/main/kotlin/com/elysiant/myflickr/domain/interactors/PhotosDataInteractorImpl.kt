@@ -3,7 +3,7 @@ package com.elysiant.myflickr.domain.interactors
 import com.elysiant.myflickr.data.service.FlickrApi
 import com.elysiant.myflickr.data.service.room.FlickrApiLocalStorage
 import com.elysiant.myflickr.models.PhotosResponse
-import com.elysiant.myflickr.util.NetworkListener
+import com.elysiant.myflickr.util.NetworkStateMonitor
 import io.reactivex.Observable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +25,7 @@ constructor(private val flickrApi: FlickrApi, private val flickrLocalStorage: Fl
      * Used to search for photos based on a search string.
      */
     override fun searchForPhotos(queryTerm: String, pageNo: Int): Observable<Result<PhotosResponse>> {
-        return if (NetworkListener.isOnline) {
+        return if (NetworkStateMonitor.isOnline) {
             flickrApi.searchPhotos(queryTerm, pageNo)
                 .flatMap { photosResultResponse ->
                     // Save to local storage

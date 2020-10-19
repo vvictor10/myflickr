@@ -101,7 +101,7 @@ class SearchResultsAdapter(private val context: Context, private val listener: P
         private fun loadImage(context: Context, imageView: ImageView, photoItem: PhotoItem, picasso: Picasso) {
 
             if (photoItem.smallUrl.isNullOrBlank()) {
-                imageView.setImageDrawable(ContextCompat.getDrawable(context, android.R.drawable.stat_notify_error))
+                imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_photo))
                 return
             }
 
@@ -121,7 +121,7 @@ class SearchResultsAdapter(private val context: Context, private val listener: P
             }
 
             picasso.load(imageUrl)
-                .placeholder(ContextCompat.getDrawable(context, android.R.drawable.stat_notify_error))
+                .error(ContextCompat.getDrawable(context, R.drawable.ic_photo))
                 .into(picassoTarget)
         }
 
